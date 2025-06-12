@@ -1,5 +1,8 @@
 package com.example.demo_new.controller;
 
+import com.example.demo_new.dto.UserDTO;
+import com.example.demo_new.services.UserServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -7,14 +10,18 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class UserController {
 
+    @Autowired
+    private UserServices userServices;
+
     @GetMapping("/getUser")
     public String getUser(){
         return "test user";
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(){
-        return "test user saved";
+    public UserDTO saveUser(@RequestBody UserDTO userDTO){
+       return userServices.saveUser(userDTO);
+//        return "test user saved";
     }
 
     @PutMapping("/updateUser")
