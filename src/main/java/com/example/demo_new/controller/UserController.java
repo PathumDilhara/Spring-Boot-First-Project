@@ -5,6 +5,8 @@ import com.example.demo_new.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "api/v1/user")
 @CrossOrigin
@@ -14,23 +16,23 @@ public class UserController {
     private UserServices userServices;
 
     @GetMapping("/getUser")
-    public String getUser(){
-        return "test user";
+    public List<UserDTO> getUser(){
+        return userServices.getAllUsers();
     }
 
     @PostMapping("/saveUser")
     public UserDTO saveUser(@RequestBody UserDTO userDTO){
        return userServices.saveUser(userDTO);
-//        return "test user saved";
+       // return "test user saved";
     }
 
     @PutMapping("/updateUser")
-    public String updateUser(){
-        return "test user updated";
+    public UserDTO updateUser(@RequestBody UserDTO userDTO){
+        return userServices.updateUser(userDTO);
     }
 
     @DeleteMapping("/deleteUser")
-    public String deleteUser(){
-        return "test user deleted";
+    public boolean deleteUser(@RequestBody UserDTO userDTO){
+        return userServices.deleteUser(userDTO);
     }
 }
